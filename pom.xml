@@ -3,10 +3,10 @@
   <parent>
     <artifactId>Viewers</artifactId>
     <groupId>org.rcsb</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>..</relativePath>
+    <version>0.0.1-SNAPSHOT</version>        
   </parent>
   <artifactId>colorbrewer</artifactId>
+  <packaging>jar</packaging>
   <name>ColorBrewer</name>
   <description>Allows the generation of color blind friendly color palettes</description>
 </project>
