@@ -45,6 +45,24 @@
 					<goal>sign</goal>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+						<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<tasks>
+						<echo message="Installing color brewer file: ${project.build.finalName} in PDB web project " />
+						<copy file="${project.build.directory}/${project.build.finalName}.jar" tofile="${basedir}/../../pdbweb/webapp/Viewers/RCSBViewers/colorbrewer.jar"></copy>
+
+					</tasks>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
