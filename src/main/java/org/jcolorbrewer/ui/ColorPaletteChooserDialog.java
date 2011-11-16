@@ -321,9 +321,9 @@ public class ColorPaletteChooserDialog
 		this.setLocation( x, y );
 
 		this.okWasPressed = false;
-
-		//super.show( );
-		super.setVisible(true);
+		//this.setVisible(true);
+		super.show( );
+		
 	}
 
 	/**
