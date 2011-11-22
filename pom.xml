@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>Viewers</artifactId>
+		<groupId>org.rcsb</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>colorbrewer</artifactId>
+	<packaging>jar</packaging>
+	<name>ColorBrewer</name>
+	<description>Allows the generation of color blind friendly color palettes</description>
+	<build>
+		<plugins>
+		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>			
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>sign</id>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+					<!--<execution>
+						<id>verify</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				--></executions>
+				<configuration>
+				
+        			  <certs>true</certs>
+					<keystore>../pdbkeys</keystore>
+					<alias>RCSB-PDB</alias>
+					<storepass>pdb0922</storepass>
+				
+					<verify>true</verify>
+					<verbose>true</verbose>
+					<goal>sign</goal>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+						<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<tasks>
+						<echo message="Installing color brewer file: ${project.build.finalName} in PDB web project " />
+						<copy file="${project.build.directory}/${project.build.finalName}.jar" tofile="${basedir}/../../../pdbweb/webapp/Viewers/RCSBViewers/colorbrewer.jar"></copy>
+
+					</tasks>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
