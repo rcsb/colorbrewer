@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>viewers</artifactId>
 		<groupId>org.rcsb</groupId>
-		<version>0.9.0-SNAPSHOT</version>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>colorbrewer</artifactId>
 	<packaging>jar</packaging>
