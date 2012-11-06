@@ -440,4 +440,9 @@ public class ColorPaletteChooserDialog
 		ColorPanelSelectionModel model = (ColorPanelSelectionModel)colorChooser.getSelectionModel();
 		model.setColorBrewer(brewer);
 	}
+	
+	public static void main(String[] args){
+		ColorPaletteChooserDialog d = new ColorPaletteChooserDialog();
+		d.show();
+	}
 }
