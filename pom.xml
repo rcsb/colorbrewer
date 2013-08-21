@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>viewers</artifactId>
 		<groupId>org.rcsb</groupId>
-		<version>4.1.0-SNAPSHOT</version>
+		<version>4.1.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>colorbrewer</artifactId>
 	<packaging>jar</packaging>
@@ -49,11 +49,12 @@
 				--></executions>
 				<configuration>
 				
-        			  <certs>true</certs>
-					<keystore>../keys/RCSB-PDB-Code.jks</keystore>
-					<alias>RCSB PDB</alias>
-					<storepass>rcsbpdb</storepass>
-				
+        		    <certs>true</certs>
+					<storetype>${keystore.type}</storetype>
+      				<keystore>${keystore.path}</keystore>
+      				<alias>${keystore.alias}</alias>
+      				<storepass>${keystore.store.password}</storepass>
+      				<keypass>${keystore.key.password}</keypass>
 					<verify>true</verify>
 					<verbose>true</verbose>
 					<goal>sign</goal>
