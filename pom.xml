@@ -11,15 +11,23 @@
 	<name>ColorBrewer</name>
 	<description>Allows the generation of color blind friendly color palettes</description>
 	
+	<!--############################################################################ -->
+	<!-- where Maven deploy will deploy project jars/wars -->
+	<!--############################################################################ -->
+  	
 	<distributionManagement>
-		<downloadUrl>http://maven.rcsb.org/</downloadUrl>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>rcsb-pdb-maven-repo</id>
-			<name>RCSB PDB Maven Repository</name>
-			<url>scp://maven.rcsb.org/Website/</url>
-			<layout>default</layout>
+		<downloadUrl>http://nexus.rcsb.org/nexus/content/repositories/releases/</downloadUrl>
+		<repository>			
+			<id>releases</id>
+			<name>RCSB PDB Maven Repository</name>			
+			<url>http://nexus.rcsb.org/nexus/content/repositories/releases</url>
+
 		</repository>
+		 <snapshotRepository>
+    		<id>snapshots</id>
+    		<url>http://nexus.rcsb.org/nexus/content/repositories/snapshots</url>
+    		<uniqueVersion>false</uniqueVersion>
+  		</snapshotRepository>
 	</distributionManagement>
 	
 	<build>
