@@ -10,13 +10,13 @@
 	<packaging>jar</packaging>
 	<name>ColorBrewer</name>
 	<description>Allows the generation of color blind friendly color palettes</description>
-	
+
 	<build>
 		<plugins>
-		<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>			
+				<version>2.4</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -29,24 +29,24 @@
 							<goal>sign</goal>
 						</goals>
 					</execution>
-					<!--<execution>
-						<id>verify</id>
-						<goals>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				--></executions>
+					<!--<execution> <id>verify</id> <goals> <goal>verify</goal> </goals> 
+						</execution> -->
+				</executions>
 				<configuration>
-				
-        		    <certs>true</certs>
+
+					<certs>true</certs>
 					<storetype>${keystore.type}</storetype>
-      				<keystore>${keystore.path}</keystore>
-      				<alias>${keystore.alias}</alias>
-      				<storepass>${keystore.store.password}</storepass>
-      				<keypass>${keystore.key.password}</keypass>
+					<keystore>${keystore.path}</keystore>
+					<alias>${keystore.alias}</alias>
+					<storepass>${keystore.store.password}</storepass>
+					<keypass>${keystore.key.password}</keypass>
 					<verify>true</verify>
 					<verbose>true</verbose>
 					<goal>sign</goal>
+					<arguments>
+						<argument>-tsa</argument>
+						<argument>https://timestamp.geotrust.com/tsa</argument>
+					</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -55,14 +55,16 @@
 					<execution>
 						<phase>install</phase>
 						<goals>
-						<goal>run</goal>
+							<goal>run</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<tasks>
-						<echo message="Installing color brewer file: ${project.build.finalName} in PDB web project " />
-						<copy file="${project.build.directory}/${project.build.finalName}.jar" tofile="${basedir}/../../../pdbweb/webapp/Viewers/RCSBViewers/colorbrewer.jar"></copy>
+						<echo
+							message="Installing color brewer file: ${project.build.finalName} in PDB web project " />
+						<copy file="${project.build.directory}/${project.build.finalName}.jar"
+							tofile="${basedir}/../../../pdbweb/webapp/Viewers/RCSBViewers/colorbrewer.jar"></copy>
 
 					</tasks>
 				</configuration>
