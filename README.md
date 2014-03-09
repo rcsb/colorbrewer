@@ -7,7 +7,7 @@ The color palettes provided by this library are based on the colors provided by 
 
 
 
-In principle there are three types of gradients provided:
+In principle there are three types of palettes provided:
 
 * Sequential
 ![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/sequential.png)
