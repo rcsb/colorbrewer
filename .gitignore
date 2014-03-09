@@ -1,6 +1,11 @@
 *.class
-
+*.settings
+*.classpath
+*.project
+*.checkstyle
+target
 # Package Files #
 *.jar
 *.war
 *.ear
+/bin

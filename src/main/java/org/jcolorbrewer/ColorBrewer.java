@@ -50,7 +50,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.vecmath.Color4f;
 
 /**
  * The data values were extracted from the RColorBrewer R package.
@@ -514,14 +513,7 @@ public enum ColorBrewer {
 		 return colorBlindSave;
 	 }
 	 
-	 public Color4f[] getColor4fPalette(int colorCount) {
-		 Color[] colors = getColorPalette(colorCount);
-		 Color4f[] colors4f = new Color4f[colorCount];
-		 for (int i = 0; i < colors.length; i++) {
-			 colors4f[i] = new Color4f(colors[i]);
-		 }
-		 return colors4f;
-	 }
+
 	 
 	 public Color[] getColorPalette(int colorCount) {
 		 if (colorCount < getMaximumColorCount()) {
