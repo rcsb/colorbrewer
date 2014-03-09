@@ -50,6 +50,7 @@ Get a color palette with a specific number of color:
 	
 ```
 
+This provides the following 8 blue colors:
 ![The 'Blues' color palette](https://raw.github.com/rcsb/colorbrewer/master/doc/img/blues.png)
 
 
@@ -58,7 +59,7 @@ Get a color palette with a specific number of color:
 
 Here we are coloring the various components of the virus structure of the human poliovirus ( PDB ID [3J69](http://www.rcsb.org/pdb/explore/explore.do?structureId=3J69) ) .
 
-![PDB ID 3J69](https://raw.github.com/rcsb/colorbrewer/master/doc/img/3J69.png)
+![PDB ID 3J69](https://raw.github.com/rcsb/colorbrewer/master/doc/img/3j69.png)
 
 
 
