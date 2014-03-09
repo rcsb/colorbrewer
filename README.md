@@ -79,7 +79,7 @@ Here we are coloring the various components of the virus structure of the human 
 
 ## Acknowledgments
 
-Colors from [www.ColorBrewer.org](http://www.colorbrewer.org{ by Cynthia A. Brewer, Geography, Pennsylvania State University.
+Colors from [www.ColorBrewer.org](http://www.colorbrewer.org) by Cynthia A. Brewer, Geography, Pennsylvania State University.
 
 
 
