@@ -3,7 +3,21 @@
 
 > Create color blind friendly color palettes in Java.
 
-The color palettes provided by this library are based on the colors provided by the [color brewer project] (http://colorbrewer.org/)
+The color palettes provided by this library are based on the colors provided by the [color brewer project] (http://colorbrewer.org/),
+
+
+
+In principle there are three types of gradients provided:
+
+* Sequential
+![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/blues.png)
+
+* Diverging
+![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/diverging.png)
+
+* Qualitative
+![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/qualitative.png)
+
 
 ## How to Use
 
