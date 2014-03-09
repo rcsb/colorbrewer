@@ -18,6 +18,8 @@ In principle there are three types of gradients provided:
 * Qualitative
 ![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/qualitative.png)
 
+For each palette any number of steps (=colors) in the palette can be requested.
+
 
 ## How to Use
 
