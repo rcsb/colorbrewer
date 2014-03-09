@@ -10,7 +10,7 @@ The color palettes provided by this library are based on the colors provided by 
 In principle there are three types of gradients provided:
 
 * Sequential
-![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/blues.png)
+![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/sequential.png)
 
 * Diverging
 ![example ](https://raw.github.com/rcsb/colorbrewer/master/doc/img/diverging.png)
