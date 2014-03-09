@@ -19,7 +19,7 @@ The color palettes provided by this library are based on the colors provided by 
 
 will display this dialog:
 
-![Screenshot of a ColorPaletteChooserDIalog](https://raw.github.com/rcsb/colorbrewer/master/docs/img/dialog.png)
+![Screenshot of a ColorPaletteChooserDIalog](https://raw.github.com/rcsb/colorbrewer/master/doc/img/dialog.png)
 
 
 ### Create a palette programmatically
@@ -50,7 +50,7 @@ Get a color palette with a specific number of color:
 	
 ```
 
-![The 'Blues' color palette](https://raw.github.com/rcsb/colorbrewer/master/docs/img/blues.png)
+![The 'Blues' color palette](https://raw.github.com/rcsb/colorbrewer/master/doc/img/blues.png)
 
 
 
@@ -58,7 +58,7 @@ Get a color palette with a specific number of color:
 
 Here we are coloring the various components of the virus structure of the human poliovirus ( PDB ID [3J69](http://www.rcsb.org/pdb/explore/explore.do?structureId=3J69) ) .
 
-![PDB ID 3J69](https://raw.github.com/rcsb/colorbrewer/master/docs/img/3J69.png)
+![PDB ID 3J69](https://raw.github.com/rcsb/colorbrewer/master/doc/img/3J69.png)
 
 
 
