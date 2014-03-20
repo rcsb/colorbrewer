@@ -12,6 +12,14 @@
 	<name>ColorBrewer</name>
 	<description>Create color blind friendly color palettes in Java.</description>
 
+	<licenses>
+		<license>
+			<name>GNU LGPL v2</name>
+			<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 
 	<scm>
 		<developerConnection>https://github.com/rcsb/colorbrewer</developerConnection>
