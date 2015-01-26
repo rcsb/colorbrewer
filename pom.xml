@@ -1,6 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+
+	<!-- for releasing to Maven Central / OSS Sonatype -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
 
 
 	<groupId>org.rcsb</groupId>
@@ -32,23 +40,6 @@
 	</issueManagement>
 
 
-
-	<!-- where Maven deploy will deploy project jars/wars -->
-	<distributionManagement>
-		<downloadUrl>http://nexus.rcsb.org/nexus/content/repositories/releases/</downloadUrl>
-		<repository>
-			<id>releases</id>
-			<name>RCSB PDB Maven Repository</name>
-			<url>http://nexus.rcsb.org/nexus/content/repositories/releases</url>
-
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://nexus.rcsb.org/nexus/content/repositories/snapshots</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -60,10 +51,26 @@
 		</plugins>
 	</build>
 
+	<plugins>
+
+		<!-- for deployment on OSS Sonatype -->
+		<plugin>
+			<groupId>org.sonatype.plugins</groupId>
+			<artifactId>nexus-staging-maven-plugin</artifactId>
+			<version>1.6.1</version>
+			<extensions>true</extensions>
+			<configuration>
+				<serverId>ossrh</serverId>
+				<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				<autoReleaseAfterClose>true</autoReleaseAfterClose>
+			</configuration>
+		</plugin>
+	</plugins>
+
 	<profiles>
 
-		<!-- Note: before you can use this build profile you need to set up an 
-			environment that contains correctly signed keys. Configure the keystore properties 
+		<!-- Note: before you can use this build profile you need to set up an
+			environment that contains correctly signed keys. Configure the keystore properties
 			and the profile in ~/.m2/settings.xml -->
 		<profile>
 			<id>codesigning</id>
@@ -108,6 +115,64 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
+
+
+	<developers>
+		<developer>
+			<id>andreas</id>
+			<name>Andreas Prlic</name>
+			<email>andreas.prlic@gmail.com</email>
+			<url>http://www.rcsb.org</url>
+			<organization>University of California, San Diego</organization>
+			<organizationUrl>http://www.rcsb.org</organizationUrl>
+			<timezone>-9</timezone>
+			<properties>
+				<picUrl>http://tinyurl.com/mymsfga</picUrl>
+			</properties>
+		</developer>
+		<developer>
+			<name>Peter W. Rose</name>
+			<email>peter.rose@rcsb.com</email>
+			<url>http://www.rcsb.org</url>
+			<organization>University of California, San Diego</organization>
+			<organizationUrl>http://www.rcsb.org</organizationUrl>
+			<timezone>-9</timezone>
+
+		</developer>
+	</developers>
+
+
+
+
 
 </project>
