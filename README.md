@@ -78,9 +78,9 @@ Here we are coloring the various components of the virus structure of the human 
 ![PDB ID 3J69](https://raw.github.com/rcsb/colorbrewer/master/doc/img/3j69.png)
 
 ## Acknowledgments
-
 Colors from [www.ColorBrewer.org](http://www.colorbrewer.org) by Cynthia A. Brewer, Geography, Pennsylvania State University.
 
-
+### Build Status
+[![Build Status](https://travis-ci.org/rcsb/colorbrewer.png)](https://travis-ci.org/rcsb/colorbrewer)
 
 
