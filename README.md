@@ -1,4 +1,5 @@
 # Colorbrewer
+[![Build Status](https://travis-ci.org/rcsb/colorbrewer.svg?branch=master)](https://travis-ci.org/rcsb/biojava)  [![Version](http://img.shields.io/badge/version-5.2-blue.svg?style=flat)](https://github.com/rcsb/colorbrewer) [![License](http://img.shields.io/badge/license-LGPL_2.1-blue.svg?style=flat)](https://github.com/rcsb/colorbrewer/blob/master/LICENSE)
 
 
 > Create color blind friendly color palettes in Java.
@@ -91,8 +92,4 @@ Here we are coloring the various components of the virus structure of the human 
 
 ## Acknowledgments
 Colors from [www.ColorBrewer.org](http://www.colorbrewer.org) by Cynthia A. Brewer, Geography, Pennsylvania State University.
-
-### Build Status
-[![Build Status](https://travis-ci.org/rcsb/colorbrewer.png)](https://travis-ci.org/rcsb/colorbrewer)
-
 
