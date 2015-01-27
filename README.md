@@ -69,7 +69,19 @@ Get a color palette with a specific number of color:
 This provides the following 8 blue colors:
 ![The 'Blues' color palette](https://raw.github.com/rcsb/colorbrewer/master/doc/img/blues.png)
 
+## Installation
 
+This project is now hosted on Maven Central. You can install the jar file by adding this to your project configuration:
+
+``` 
+<dependencies>
+ <dependency>
+  <groupId>org.biojava</groupId>
+  <artifactId>jcolorbrewer</artifactId>
+  <version>5.2</version>
+ </dependency>
+</dependencies>
+```
 
 ## Example Application
 
