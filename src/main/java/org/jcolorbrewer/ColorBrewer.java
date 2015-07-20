@@ -590,9 +590,7 @@ public enum ColorBrewer {
 	 private Color[] toColor(int numberOfColors) {
 		 Color[] colors = new Color[numberOfColors];
 		 for (int i = 0; i < numberOfColors; i++) {
-			 int hex = hexColors[numberOfColors-1][i];
-
-			 colors[i] = new Color(hex);
+			 colors[i] = new Color(hexColors[numberOfColors-1][i]);
 		 }
 		 return colors;
 	 }

@@ -1,11 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 
-	<groupId>org.rcsb</groupId>
+	<!-- for releasing to Maven Central / OSS Sonatype -->
+	<!-- this is how to release:
+	mvn clean install source:jar javadoc:jar deploy
+	-->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+
+	<groupId>org.biojava</groupId>
 	<artifactId>jcolorbrewer</artifactId>
-	<version>5.1-SNAPSHOT</version>
+	<version>5.4-SNAPSHOT</version>
 
 
 	<packaging>jar</packaging>
@@ -20,6 +31,13 @@
 		</license>
 	</licenses>
 
+	<properties>
+		<jdk.version>1.6</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.targetEncoding>UTF-8</project.build.targetEncoding>
+		<maxmem>512M</maxmem>
+
+	</properties>
 
 	<scm>
 		<developerConnection>https://github.com/rcsb/colorbrewer</developerConnection>
@@ -32,23 +50,6 @@
 	</issueManagement>
 
 
-
-	<!-- where Maven deploy will deploy project jars/wars -->
-	<distributionManagement>
-		<downloadUrl>http://nexus.rcsb.org/nexus/content/repositories/releases/</downloadUrl>
-		<repository>
-			<id>releases</id>
-			<name>RCSB PDB Maven Repository</name>
-			<url>http://nexus.rcsb.org/nexus/content/repositories/releases</url>
-
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://nexus.rcsb.org/nexus/content/repositories/snapshots</url>
-			<uniqueVersion>false</uniqueVersion>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -57,13 +58,118 @@
 				<version>2.4</version>
 			</plugin>
 
+			<!-- for deployment on OSS Sonatype -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.1</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-gpg-plugin</artifactId>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>sign-artifacts</id>-->
+						<!--<phase>verify</phase>-->
+						<!--<goals>-->
+							<!--<goal>sign</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.8</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>1.9</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.10.1</version>
+					<configuration>
+						<maxmemory>256m</maxmemory>
+						<footer>&lt;script src="http://www.google-analytics.com/urchin.js"
+							type="text/javascript"&gt;&lt;/script&gt;&lt;script
+							type="text/javascript"&gt;_uacct =
+							"UA-1326640-1";urchinTracker();&lt;/script&gt;</footer>
+					</configuration>
+
+				</plugin>
+			</plugins>
+
+		</pluginManagement>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.6</version>
+			</extension>
+		</extensions>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.1</version>
+				<configuration>
+					<aggregate>true</aggregate>
+					<breakiterator>true</breakiterator>
+					<quiet>true</quiet>
+					<source>1.5</source>
+					<verbose>false</verbose>
+					<linksource>true</linksource>
+					<detectlinks>true</detectlinks>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<profiles>
 
-		<!-- Note: before you can use this build profile you need to set up an 
-			environment that contains correctly signed keys. Configure the keystore properties 
+		<!-- Note: before you can use this build profile you need to set up an
+			environment that contains correctly signed keys. Configure the keystore properties
 			and the profile in ~/.m2/settings.xml -->
 		<profile>
 			<id>codesigning</id>
@@ -108,6 +214,64 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
+
+
+	<developers>
+		<developer>
+			<id>andreas</id>
+			<name>Andreas Prlic</name>
+			<email>andreas.prlic@gmail.com</email>
+			<url>http://www.rcsb.org</url>
+			<organization>University of California, San Diego</organization>
+			<organizationUrl>http://www.rcsb.org</organizationUrl>
+			<timezone>-9</timezone>
+			<properties>
+				<picUrl>http://tinyurl.com/mymsfga</picUrl>
+			</properties>
+		</developer>
+		<developer>
+			<name>Peter W. Rose</name>
+			<email>peter.rose@rcsb.com</email>
+			<url>http://www.rcsb.org</url>
+			<organization>University of California, San Diego</organization>
+			<organizationUrl>http://www.rcsb.org</organizationUrl>
+			<timezone>-9</timezone>
+
+		</developer>
+	</developers>
+
+
+
+
 
 </project>
