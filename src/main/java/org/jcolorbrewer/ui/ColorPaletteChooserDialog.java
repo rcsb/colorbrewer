@@ -62,11 +62,7 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -172,6 +168,9 @@ public class ColorPaletteChooserDialog
 		this.initialize( );
 	}
 
+
+	ColorBlindAwareColorChooserPanel[] panels = new ColorBlindAwareColorChooserPanel[3];
+
 	/**
 	 * Initializes the GUI for the window.  That GUI
 	 * includes a JColorChooser panel, framed with an empty border.
@@ -201,12 +200,13 @@ public class ColorPaletteChooserDialog
 		this.innerPanel.setBorder( new CompoundBorder(
 			new BevelBorder( BevelBorder.LOWERED ),
 			new EmptyBorder( new Insets( 10, 10, 10, 10 ) ) ) );
-		pane.add( this.innerPanel, BorderLayout.CENTER );
+		pane.add(this.innerPanel, BorderLayout.CENTER);
 
 		// Colors Tab
 		final JPanel colorsTab = new JPanel( );
-		colorsTab.setBorder( new EmptyBorder( 10, 10, 10, 10 ) );
-		colorsTab.setLayout( new BorderLayout( ) );
+		colorsTab.setBorder(new EmptyBorder(10, 10, 10, 10));
+		//colorsTab.setLayout( new GridLayout(3, 1, 5, 0) );
+		colorsTab.setLayout(new BoxLayout(colorsTab, BoxLayout.Y_AXIS));
 		this.innerPanel.add(colorsTab);
 
 		// set custom colorSelectionModel
@@ -214,7 +214,7 @@ public class ColorPaletteChooserDialog
 		this.colorChooser = new JColorChooser(model);
 	
 		// overwrite the color chooser panels
-		AbstractColorChooserPanel[] panels = new AbstractColorChooserPanel[3];
+
 		panels[0] = new SequentialColorPalettePanel();
 		panels[1] = new DivergingColorPalettePanel();
 		panels[2] = new QualitativeColorPalettePanel();
@@ -224,52 +224,79 @@ public class ColorPaletteChooserDialog
 		colorChooser.setPreviewPanel(new JPanel()); 
 		colorsTab.add( this.colorChooser, BorderLayout.CENTER );
 
+
+		// color blind friendly checkbox
+		final JPanel cbFriendlyPanel = new JPanel( );
+		cbFriendlyPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		cbFriendlyPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+		colorsTab.add(cbFriendlyPanel, BorderLayout.SOUTH);
+
+		final JPanel cbFriendlyGridPanel = new JPanel( );
+
+		cbFriendlyPanel.add(cbFriendlyGridPanel);
+
+
+		final JCheckBox colorBlindOnly = new JCheckBox("show only colorblind-friendly");
+		colorBlindOnly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JCheckBox source = (JCheckBox) e.getSource();
+				for (ColorBlindAwareColorChooserPanel cbccp : panels) {
+
+					cbccp.setShowColorBlindSave(source.isSelected());
+
+					cbccp.updateChooser();
+
+					colorChooser.repaint();
+
+				}
+			}
+		});
+		cbFriendlyGridPanel.add(colorBlindOnly);
+
 		// OK, Cancel, and Reset buttons
 		final JPanel buttonPanel = new JPanel( );
-		buttonPanel.setLayout( new FlowLayout( FlowLayout.RIGHT,0,0 ) );
-		buttonPanel.setBorder( new EmptyBorder( 10, 0, 0, 0 ) );
-		colorsTab.add( buttonPanel, BorderLayout.SOUTH );
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+		buttonPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+		colorsTab.add(buttonPanel, BorderLayout.CENTER);
 
 		final JPanel buttonGridPanel = new JPanel( );
-		buttonGridPanel.setLayout( new GridLayout( 1, 3, 5, 0 ) );
-		buttonPanel.add( buttonGridPanel );
+		buttonGridPanel.setLayout(new GridLayout(1, 3, 5, 0));
+		buttonPanel.add(buttonGridPanel);
+
 
 		// Reset
 		final JButton resetButton = new JButton( "Reset" );
-		resetButton.addActionListener( new ActionListener( )
-		{
-			public void actionPerformed( final ActionEvent e )
-			{
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+
 				setColorBrewer(ColorPaletteChooserDialog.this.startingColorBrewer);
 			}
-		} );
+		});
 		buttonGridPanel.add( resetButton );
 
 		// OK
 		final JButton okButton = new JButton( "OK" );
-		okButton.setDefaultCapable( true );
-		this.getRootPane( ).setDefaultButton( okButton );
-		okButton.addActionListener( new ActionListener( )
-		{
-			public void actionPerformed( final ActionEvent e )
-			{
+		okButton.setDefaultCapable(true);
+		this.getRootPane( ).setDefaultButton(okButton);
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
+				System.out.println("CLICKED");
+
 				ColorPaletteChooserDialog.this.okWasPressed = true;
 				ColorPaletteChooserDialog.this.setVisible(false);
 			}
-		} );
+		});
 		buttonGridPanel.add( okButton );
 
 		// Cancel
 		final JButton cancelButton = new JButton( "Cancel" );
-		cancelButton.addActionListener( new ActionListener( )
-		{
-			public void actionPerformed( final ActionEvent e )
-			{
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent e) {
 				setColorBrewer(ColorPaletteChooserDialog.this.startingColorBrewer);
 				ColorPaletteChooserDialog.this.okWasPressed = false;
 				ColorPaletteChooserDialog.this.setVisible(false);
 			}
-		} );
+		});
 		buttonGridPanel.add( cancelButton );
 
 		this.pack( );

@@ -50,6 +50,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -67,11 +69,10 @@ import org.jcolorbrewer.ColorBrewer;
  * 
  * @author Peter Rose
  */
-public class DivergingColorPalettePanel extends AbstractColorChooserPanel
+public class DivergingColorPalettePanel extends ColorBlindAwareColorChooserPanel
                                implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	public void updateChooser() {}
 	
 	protected JToggleButton createPalette(ColorBrewer brewer, Border normalBorder) {
 		JToggleButton palette = new JToggleButton();
@@ -90,10 +91,17 @@ public class DivergingColorPalettePanel extends AbstractColorChooserPanel
 		ButtonGroup boxOfPalettes = new ButtonGroup();
 		Border border = BorderFactory.createEmptyBorder(2,2,2,2);
 
-		for (ColorBrewer palette: ColorBrewer.getDivergingColorPalettes(false)) {
+		for (ColorBrewer palette: ColorBrewer.getDivergingColorPalettes(isShowColorBlindSave())) {
+
+			if ( isShowColorBlindSave() ){
+				if (!  palette.isColorBlindSave()) {
+					continue;
+				}
+			}
 			JToggleButton button = createPalette(palette, border);
 			boxOfPalettes.add(button);
 			add(button);
+			currentButtons.add(button);
 		}
 	}
 
@@ -101,7 +109,7 @@ public class DivergingColorPalettePanel extends AbstractColorChooserPanel
 		ColorSelectionModel model = getColorSelectionModel();
 
 		String command = ((JToggleButton)e.getSource()).getActionCommand();
-		for (ColorBrewer palette: ColorBrewer.getDivergingColorPalettes(false)) {
+		for (ColorBrewer palette: ColorBrewer.getDivergingColorPalettes(isShowColorBlindSave())) {
 			if (palette.name().equals(command)) {
 				((ColorPanelSelectionModel) model).setColorBrewer(palette);
 				break;

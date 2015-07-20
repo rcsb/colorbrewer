@@ -25,6 +25,8 @@
 package demo;
 
 
+import java.awt.Color;
+
 import org.jcolorbrewer.ui.ColorPaletteChooserDialog;
 
 
@@ -33,9 +35,13 @@ public class ShowColorChooserDialog {
 	public static void main(String[] args){
 		final ColorPaletteChooserDialog dialog = new ColorPaletteChooserDialog();
 		dialog.show();
+		System.out.println(dialog.getColor());
+		if(dialog.wasOKPressed()) {
+			Color c = dialog.getColor();
+			System.out.println(c);
+		}
 
 
-		
 
 	}
 }

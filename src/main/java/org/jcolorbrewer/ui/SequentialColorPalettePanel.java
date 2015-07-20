@@ -49,11 +49,12 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Set;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.Icon;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
@@ -67,12 +68,13 @@ import org.jcolorbrewer.ColorBrewer;
  * 
  * @author Peter Rose
  */
-public class SequentialColorPalettePanel extends AbstractColorChooserPanel
+public class SequentialColorPalettePanel extends ColorBlindAwareColorChooserPanel
                                implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
-	public void updateChooser() {}
-	
+
+
+
 	protected JToggleButton createPalette(ColorBrewer brewer, Border normalBorder) {
 		JToggleButton palette = new JToggleButton();
 		palette.setActionCommand(brewer.name());
@@ -88,30 +90,44 @@ public class SequentialColorPalettePanel extends AbstractColorChooserPanel
 		initialize();
 	}
 
+
+
 	/**
 	 * 
 	 */
 	private void initialize() {
 		setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
 
-		ButtonGroup boxOfPalettes = new ButtonGroup();
 		Border border = BorderFactory.createEmptyBorder(2,2,2,2);
 
 		//int count = 0;
-		for (ColorBrewer palette: ColorBrewer.getSequentialColorPalettes(false)) {
+		for (ColorBrewer palette: ColorBrewer.getSequentialColorPalettes(isShowColorBlindSave())) {
+
+			if ( isShowColorBlindSave() ){
+				if (!  palette.isColorBlindSave()) {
+					continue;
+				}
+			}
 			JToggleButton button = createPalette(palette, border);
-			boxOfPalettes.add(button);
+
 			add(button);
+			currentButtons.add(button);
 			//count++;
 		}
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		ColorSelectionModel model = getColorSelectionModel();
 
+		System.out.println("COLORSELECTIONMODEL: " + model);
+
 		String command = ((JToggleButton)e.getSource()).getActionCommand();
-		for (ColorBrewer palette: ColorBrewer.getSequentialColorPalettes(false)) {
+		for (ColorBrewer palette: ColorBrewer.getSequentialColorPalettes(isShowColorBlindSave())) {
+			
+			
 			if (palette.name().equals(command)) {
+				System.out.println(palette.name() + " comm:" + command);
 				((ColorPanelSelectionModel) model).setColorBrewer(palette);
 				break;
 			}
@@ -135,5 +151,7 @@ public class SequentialColorPalettePanel extends AbstractColorChooserPanel
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 	
 }
