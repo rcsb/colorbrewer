@@ -476,7 +476,7 @@ public enum ColorBrewer {
 	         {0xFF0000, 0xFF3939, 0xFF7171, 0xFFAAAA, 0xFFE3E3, 0xE3E3FF, 0xAAAAFF, 0x7171FF, 0x3939FF, 0x0000FF},
 	         {0xFF0000, 0xFF3333, 0xFF6666, 0xFF9999, 0xFFCCCC, 0xFFFFFF, 0xCCCCFF, 0x9999FF, 0x6666FF, 0x3333FF, 0x0000FF}
              }),
-  hsvCyMg (1, "HSV Red-Blue", true, new int[][] {
+  hsvCyMg (1, "HSV Cy-Mg", true, new int[][] {
 		     {0x00FFFF},
 		     {0x00FFFF, 0xFF00FF},
 	         {0x00FFFF, 0xFFFFFF, 0xFF00FF},
@@ -590,7 +590,9 @@ public enum ColorBrewer {
 	 private Color[] toColor(int numberOfColors) {
 		 Color[] colors = new Color[numberOfColors];
 		 for (int i = 0; i < numberOfColors; i++) {
-			 colors[i] = new Color(hexColors[numberOfColors][i]);
+			 int hex = hexColors[numberOfColors-1][i];
+
+			 colors[i] = new Color(hex);
 		 }
 		 return colors;
 	 }
