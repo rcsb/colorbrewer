@@ -1,1 +1,19 @@
 language: java
+jdk:
+- oraclejdk8
+sudo: false
+cache:
+  directories:
+  - "$HOME/.m2"
+before_install:
+- if [ ! -z "$GPG_SECRET_KEYS" ]; then echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE
+  --import; fi
+- if [ ! -z "$GPG_OWNERTRUST"  ]; then echo $GPG_OWNERTRUST  | base64 --decode | $GPG_EXECUTABLE
+  --import-ownertrust; fi
+after_success:
+- '[[ $TRAVIS_BRANCH == "master" ]] && { mvn deploy --settings travis-settings.xml
+  -DskipTests=true -B ; };'
+env:
+  global:
+  - secure: NW1cc2R7TMRbtoFs8A+wePBLLLmxg96M2zfT+0OIeD9P6PA7MHJLDsCWZuQnuzBydZD4SGIciywM8CQEfsvE+PChk2GEXOMsTGDC9DeOwrps9xJbabSoWJqrKz9li6OUMNrzFES1uebc19iPBpsysZxaR8iX6wurIuN/Mh+y0KE=
+  - secure: EMOjJpSuGbBfIA742wihiu4iSSAjfsz52k26NNZ2a8WGQuLIFZF+9CrmJAzSNnLPjYyp73hvoN3EgqPJMBnnA7s4p4Yt8O7KJ8xuQEPlMlIXpR8nhKxV24EEaFMREsPUphwXHDdyTTyOaSz8xxYnLyFmijkkVPvf2jrIdYyu+tM=
