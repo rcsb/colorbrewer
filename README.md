@@ -4,9 +4,10 @@
 
 > Create color blind friendly color palettes in Java.
 
-The color palettes provided by this library are based on the colors provided by the [color brewer project] (http://colorbrewer.org/),
+> [!NOTE]
+> Note that this repository has been archived because it is not actively maintained anymore.
 
-
+The color palettes provided by this library are based on the colors provided by the [color brewer project](http://colorbrewer.org/),
 
 In principle there are three types of palettes provided:
 
